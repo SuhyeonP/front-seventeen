@@ -20,7 +20,7 @@ const ImageG: React.FunctionComponent <Prop>= ({images}) => {
         <div className="going-detail">
             {showImagesZoom && <ImagesZoom images={images} onClose={onClose} />}
             <div className="img-zip-zoom">
-                <img className="before-zoom" src={backURL+images[0].src} alt={backURL+images[0].src} width="50%" onClick={onZoom}/>
+                <img className="before-zoom" src={backURL+"/"+images[0].src} alt={backURL+"/"+images[0].src} width="50%" onClick={onZoom}/>
                 <div role="presentation"
                      style={{display: 'inline-block', width: '50%', textAlign: 'center', verticalAlign: 'middle'}}
                      onClick={onZoom} className="moresee-img">

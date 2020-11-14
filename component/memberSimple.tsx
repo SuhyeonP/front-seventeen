@@ -20,7 +20,7 @@ const MemberSimple:React.FunctionComponent=()=>{
             {members.map((member)=>(
                 <li>
                     <div>
-                        <img src={backURL+member.src} className="member-simple-img"/>
+                        <img src={backURL+"/"+member.src} className="member-simple-img"/>
                         <Link href={"/member/"+member.id}>
                             <a><p>{member.name}</p></a>
                         </Link>
