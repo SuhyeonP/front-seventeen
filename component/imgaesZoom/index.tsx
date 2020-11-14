@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Slick from 'react-slick';
 import { Overlay, Header, CloseBtn, ImgWrapper, Indicator, Global } from './styles';
+import {backURL} from "../../config/config";
 
 interface Prop{
     images:{src:string}[],
@@ -30,7 +31,7 @@ const ImagesZoom = ({ images, onClose }:Prop) => {
                     >
                         {images.map((v) => (
                             <ImgWrapper key={v.src}>
-                                <img src={"http://localhost:3065/"+v.src} alt={"http://localhost:3065/"+v.src} />
+                                <img src={backURL+v.src} alt={backURL+v.src} />
                             </ImgWrapper>
                         ))}
                     </Slick>

@@ -5,8 +5,9 @@ import goingSaga from './going'
 import adminSaga from './admin'
 import membersSaga from './members'
 import albumSaga from './album'
+import {backURL} from "../config/config";
 
-axios.defaults.baseURL='http://localhost:3065'
+axios.defaults.baseURL=backURL
 axios.defaults.withCredentials = true;
 
 export default function* rootSaga() {

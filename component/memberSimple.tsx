@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import Link from "next/link";
 import {useSelector} from "react-redux";
+import {backURL} from "../config/config";
 
 interface Prop{
     id:number,
@@ -19,7 +20,7 @@ const MemberSimple:React.FunctionComponent=()=>{
             {members.map((member)=>(
                 <li>
                     <div>
-                        <img src={"http://localhost:3065/"+member.src} className="member-simple-img"/>
+                        <img src={backURL+member.src} className="member-simple-img"/>
                         <Link href={"/member/"+member.id}>
                             <a><p>{member.name}</p></a>
                         </Link>

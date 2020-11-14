@@ -3,6 +3,7 @@ import {LOAD_MEMBER_REQUEST} from "../../reducers/member";
 import AppLayout from "../../component/Layout";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
+import {backURL} from "../../config/config";
 
 const MemberDetail=()=>{
     const dispatch=useDispatch();
@@ -23,7 +24,7 @@ const MemberDetail=()=>{
                         ?
                         <>
                             <h2>{member.name}</h2>
-                            <img src={"http://localhost:3065/"+member.src} className="member-img"/>
+                            <img src={backURL+member.src} className="member-img"/>
                             <table>
                                 <tr>
                                     <td>&nbsp;</td>
