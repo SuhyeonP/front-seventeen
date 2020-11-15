@@ -11,13 +11,11 @@ import {
 } from '../reducers/member';
 
 function loadMAPI(data) {
-    console.log(data)
     return axios.get(`/members/${data}`);
 }
 
 function* loadM(action) {
     try {
-        console.log(action,action.data)
         const result = yield call(loadMAPI, action.data);
         yield put({
             type: LOAD_MEMBER_SUCCESS,

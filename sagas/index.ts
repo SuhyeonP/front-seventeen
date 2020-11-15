@@ -11,7 +11,6 @@ axios.defaults.baseURL=backURL
 axios.defaults.withCredentials = true;
 
 export default function* rootSaga() {
-    console.log('is it come here?')
     yield all([
         fork(goingSaga),
         fork(adminSaga),

@@ -18,7 +18,6 @@ import {
 } from '../reducers/going';
 
 function loadG(data) {
-    console.log(data)
     return axios.get(`/going/${data}`);
 }
 

@@ -16,7 +16,6 @@ function logInAPI(data) {
 
 function* logIn(action) {
     try {
-        console.log('saga logIn');
         const result = yield call(logInAPI,action.data);
         yield put({
             type: LOGIN_ADMIN_SUCCESS,
@@ -60,7 +59,6 @@ function* watchLogOut() {
 }
 
 export default function* adminSaga() {
-    console.log('here is adminSagag')
     yield all([
         fork(watchLogIn),
         fork(watchLogOut)

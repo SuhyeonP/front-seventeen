@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useEffect} from "react";
-import Head from "next/head";
+import Head from 'next/head';
+import Link from 'next/link'
 import AppLayout from "../component/Layout";
-import Link from "next/link";
 import  '../styles/Home.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {logoutAction} from "../reducers/admin";
@@ -13,14 +13,13 @@ const Home:React.FunctionComponent=()=>{
     dispatch(logoutAction())
   },[])
 
-
   return (
       <>
         <Head>
           <title>Seventeen</title>
         </Head>
         <AppLayout>
-          <ul className="main-list">
+          <ul className="main-list" style={{height:"80vh"}}>
             <li>
               <Link href="/aboutSeven"><a>About Seventeen</a></Link>
             </li>

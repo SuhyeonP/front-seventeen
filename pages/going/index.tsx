@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
-import Head from "next/head";
 import AppLayout from "../../component/Layout";
 import PagingTable from "../../component/pagingGoing";
 import {useDispatch} from "react-redux";
 import {LOAD_GOINGS_REQUEST} from "../../reducers/going";
+import Head from "next/head";
 
 const GoingSeven: React.FunctionComponent = () => {
     const dispatch=useDispatch();
