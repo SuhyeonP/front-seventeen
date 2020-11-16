@@ -24,7 +24,7 @@ const MemberDetail=()=>{
                         ?
                         <>
                             <h2>{member.name}</h2>
-                            <img src={backURL+"/"+member.src} className="member-img"/>
+                            <img src={member.img} className="member-img"/>
                             <table>
                                 <tr>
                                     <td>&nbsp;</td>

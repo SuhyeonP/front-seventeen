@@ -1,4 +1,4 @@
-import produce from '../util/produce';
+import produce from 'immer';
 export const initialState={
     loginData:{},
     logInLoading: false, // 로그인 시도중
