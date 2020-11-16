@@ -2,10 +2,19 @@ import React, {useCallback, useEffect, useRef} from "react";
 import Head from "next/head";
 import AppLayout from "../../component/Layout";
 import {useDispatch,useSelector} from "react-redux";
+import {END} from 'redux-saga'
 import useInput from "../../hooks/useInput";
-import {LOGIN_ADMIN_REQUEST, LOGOUT_ADMIN_REQUEST, loginAction, logoutAction} from "../../reducers/admin";
+import {
+    LOGIN_ADMIN_REQUEST,
+    LOGOUT_ADMIN_REQUEST,
+    loginAction,
+    logoutAction,
+    LOAD_ADMIN_REQUEST
+} from "../../reducers/admin";
 import {addGoing, POST_GOING_REQUEST, UPLOAD_IMAGES_REQUEST} from "../../reducers/going";
 import {Button, Form} from 'antd';
+import wrapper from "../../store/configureStore";
+import axios from "axios";
 
 
 const Album:React.FunctionComponent=()=>{
@@ -67,6 +76,11 @@ const Album:React.FunctionComponent=()=>{
         });
     }, [title,episode,link,explain,when,dday]);
 
+    useEffect(()=>{
+        dispatch({
+            type:LOAD_ADMIN_REQUEST
+        })
+    },[])
 
 
 
@@ -109,5 +123,17 @@ const Album:React.FunctionComponent=()=>{
         </>
     )
 }
+
+export const getServerSideProps=wrapper.getServerSideProps(async(context)=>{
+    const cookie = context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie = '';
+    if (context.req && cookie) {
+        axios.defaults.headers.Cookie = cookie;
+    }
+    context.store.dispatch({
+        type:LOAD_ADMIN_REQUEST
+    })
+    context.store.dispatch(END);
+})
 
 export default Album;

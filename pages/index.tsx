@@ -4,13 +4,22 @@ import Link from 'next/link'
 import AppLayout from "../component/Layout";
 import  '../styles/Home.module.css';
 import {useDispatch, useSelector} from "react-redux";
-import {logoutAction} from "../reducers/admin";
+import {LOAD_ADMIN_REQUEST, logoutAction} from "../reducers/admin";
+import wrapper from "../store/configureStore";
+import axios from 'axios'
+import {END} from 'redux-saga';
+
 
 const Home:React.FunctionComponent=()=>{
   const {me}=useSelector((state:any)=>state.admin);
   const dispatch=useDispatch();
   const onLogout=useCallback(()=>{
     dispatch(logoutAction())
+  },[])
+  useEffect(()=>{
+    dispatch({
+      type:LOAD_ADMIN_REQUEST
+    })
   },[])
 
   return (
@@ -46,5 +55,18 @@ const Home:React.FunctionComponent=()=>{
       </>
   )
 }
+export const getServerSideProps=wrapper.getServerSideProps(async(context)=>{
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  context.store.dispatch({
+    type:LOAD_ADMIN_REQUEST
+  })
+  context.store.dispatch(END);
+  // await context.store.sagaTask.toPromise();
+})
+
 
 export default Home;

@@ -1,4 +1,4 @@
-import produce from "immer";
+import produce from '../util/produce';
 export const initialState={
     loginData:{},
     logInLoading: false, // 로그인 시도중
@@ -7,6 +7,9 @@ export const initialState={
     logOutLoading: false, // 로그아웃 시도중
     logOutDone: false,
     logOutError: null,
+    loadAdminLoading:false,
+    loadAdminDone:false,
+    loadAdminError:null,
     me:null,
 }
 
@@ -17,6 +20,10 @@ export const LOGIN_ADMIN_FAILURE='LOGIN_ADMIN_FAILURE'
 export const LOGOUT_ADMIN_REQUEST='LOGOUT_ADMIN_REQUEST'
 export const LOGOUT_ADMIN_SUCCESS='LOGOUT_ADMIN_SUCCESS'
 export const LOGOUT_ADMIN_FAILURE='LOGOUT_ADMIN_FAILURE'
+
+export const LOAD_ADMIN_REQUEST='LOAD_ADMIN_REQUEST'
+export const LOAD_ADMIN_SUCCESS='LOAD_ADMIN_SUCCESS'
+export const LOAD_ADMIN_FAILURE='LOAD_ADMIN_FAILURE'
 
 export const loginAction = (data) => ({
     type: LOGIN_ADMIN_REQUEST,
@@ -30,7 +37,6 @@ export const logoutAction =()=> ({
 
 
 const reducer= (state=initialState,action)=>produce(state,(draft)=>{
-    console.log('reducer login here')
     switch(action.type){
         case LOGIN_ADMIN_REQUEST:
             draft.logInLoading=true;
@@ -38,7 +44,7 @@ const reducer= (state=initialState,action)=>produce(state,(draft)=>{
             draft.logInDone=false;
             break;
         case LOGIN_ADMIN_SUCCESS:
-            console.log('success here')
+            console.log('login admin success reducer')
             draft.me=action.data
             draft.logInLoading=false;
             draft.logInDone=true;
@@ -60,6 +66,20 @@ const reducer= (state=initialState,action)=>produce(state,(draft)=>{
         case LOGOUT_ADMIN_FAILURE:
             draft.logOutLoading = false;
             draft.logOutError = action.error;
+            break;
+        case LOAD_ADMIN_REQUEST:
+            draft.loadAdminLoading = true;
+            draft.loadAdminError = null;
+            draft.loadAdminDone = false;
+            break;
+        case  LOAD_ADMIN_SUCCESS:
+            draft.loadAdminLoading = false;
+            draft.loadAdminDone = true;
+            draft.me = action.data;
+            break;
+        case LOAD_ADMIN_FAILURE:
+            draft.loadAdminLoading = false;
+            draft.loadAdminError = action.error;
             break;
         default:
             break;

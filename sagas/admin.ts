@@ -6,8 +6,31 @@ import {
     LOGIN_ADMIN_FAILURE,
     LOGOUT_ADMIN_REQUEST,
     LOGOUT_ADMIN_SUCCESS,
-    LOGOUT_ADMIN_FAILURE
+    LOGOUT_ADMIN_FAILURE,
+    LOAD_ADMIN_REQUEST,
+    LOAD_ADMIN_SUCCESS,
+    LOAD_ADMIN_FAILURE
 }from '../reducers/admin';
+
+function loadAdminAPI() {
+    return axios.get('/admin');
+}
+
+function* loadAdmin() {
+    try {
+        const result = yield call(loadAdminAPI);
+        yield put({
+            type: LOAD_ADMIN_SUCCESS,
+            data: result.data,
+        });
+    } catch (err) {
+        console.error(err);
+        yield put({
+            type: LOAD_ADMIN_FAILURE,
+            error: err.response.data,
+        });
+    }
+}
 
 
 function logInAPI(data) {
@@ -58,9 +81,14 @@ function* watchLogOut() {
     yield takeLatest(LOGOUT_ADMIN_REQUEST, logOut);
 }
 
+function* watchLoadAdmin() {
+    yield takeLatest(LOAD_ADMIN_REQUEST, loadAdmin);
+}
+
 export default function* adminSaga() {
     yield all([
         fork(watchLogIn),
-        fork(watchLogOut)
+        fork(watchLogOut),
+        fork(watchLoadAdmin)
     ]);
 }
