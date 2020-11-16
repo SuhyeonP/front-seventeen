@@ -5,9 +5,9 @@ import AppLayout from "../component/Layout";
 import  '../styles/Home.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {LOAD_ADMIN_REQUEST, logoutAction} from "../reducers/admin";
-import wrapper from "../store/configureStore";
-import axios from 'axios'
-import {END} from 'redux-saga';
+// import wrapper from "../store/configureStore";
+// import axios from 'axios'
+// import {END} from 'redux-saga';
 
 
 const Home:React.FunctionComponent=()=>{
@@ -28,7 +28,7 @@ const Home:React.FunctionComponent=()=>{
           <title>Seventeen</title>
         </Head>
         <AppLayout>
-          <ul className="main-list" style={{height:"80vh"}}>
+          <ul className="main-list" >
             <li>
               <Link href="/aboutSeven"><a>About Seventeen</a></Link>
             </li>
@@ -55,18 +55,18 @@ const Home:React.FunctionComponent=()=>{
       </>
   )
 }
-export const getServerSideProps=wrapper.getServerSideProps(async(context)=>{
-  const cookie = context.req ? context.req.headers.cookie : '';
-  axios.defaults.headers.Cookie = '';
-  if (context.req && cookie) {
-    axios.defaults.headers.Cookie = cookie;
-  }
-  context.store.dispatch({
-    type:LOAD_ADMIN_REQUEST
-  })
-  context.store.dispatch(END);
-  // await context.store.sagaTask.toPromise();
-})
+// export const getServerSideProps=wrapper.getServerSideProps(async(context)=>{
+//   const cookie = context.req ? context.req.headers.cookie : '';
+//   axios.defaults.headers.Cookie = '';
+//   if (context.req && cookie) {
+//     axios.defaults.headers.Cookie = cookie;
+//   }
+//   context.store.dispatch({
+//     type:LOAD_ADMIN_REQUEST
+//   })
+//   context.store.dispatch(END);
+//   // await context.store.sagaTask.toPromise();
+// })
 
 
 export default Home;

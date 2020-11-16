@@ -7,19 +7,21 @@ import { LOAD_GOING_REQUEST} from "../../reducers/going";
 import ImageG from "../../component/goingImage";
 import {useRouter} from "next/router";
 import {LOAD_ADMIN_REQUEST} from "../../reducers/admin";
+import wrapper from "../../store/configureStore";
+import axios from 'axios'
+import {END}from 'redux-saga'
 
 const GoingSeven: React.FunctionComponent = () => {
-    const dispatch = useDispatch();
-    const router=useRouter();
-    const {going}=(router.query);
-    useEffect(()=>{
-        dispatch({type:LOAD_GOING_REQUEST,data:Number(going)})
-        dispatch({
-            type:LOAD_ADMIN_REQUEST
-        })
-    },[])
-    const {singleGoing,loadGoingDone} = useSelector((state:any) => state.going);
-    console.log(singleGoing)
+    // const dispatch = useDispatch();
+    // const router=useRouter();
+    // const {going}=router.query;
+    // useEffect(()=>{
+    //     dispatch({type:LOAD_GOING_REQUEST,data:Number(going)})
+    //     dispatch({
+    //         type:LOAD_ADMIN_REQUEST
+    //     })
+    // },[])
+    const {singleGoing,loadGoingDone,imagePaths} = useSelector((state:any) => state.going);
     return (
         <>
             <Head>
@@ -29,7 +31,7 @@ const GoingSeven: React.FunctionComponent = () => {
                 <div className="going-detail">
                     {loadGoingDone?
                         <>
-                            {singleGoing.REACT_SVT_IMAGEs===null?
+                            {imagePaths.length===0?
                                 <>
                                     <i className="none-ground"><br/>개발중입니다.</i>
                                 </>
@@ -51,6 +53,14 @@ const GoingSeven: React.FunctionComponent = () => {
     )
 }
 
-
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie = '';
+    if (context.req && cookie) {
+        axios.defaults.headers.Cookie = cookie;
+    }
+    context.store.dispatch({type:LOAD_GOING_REQUEST,data:Number(context.params.going)})
+    context.store.dispatch(END);
+});
 
 export default GoingSeven;
